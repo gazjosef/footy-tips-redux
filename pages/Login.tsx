@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Container from "../ui/Container.js";
-import FormWrapper from "../ui/FormWrapper.js";
-import StyledForm from "../ui/StyledForm.js";
-import InputField from "../ui/InputField.js";
-import Label from "../ui/Label.js";
+import Container from "../ui/Container.tsx";
+import FormWrapper from "../ui/FormWrapper.tsx";
+import StyledForm from "../ui/StyledForm.tsx";
+import InputField from "../ui/InputField.tsx";
+import Field from "../ui/Field.tsx";
+import Label from "../ui/Label.tsx";
 // import LoginButton from "../ui/LoginButton.js";
 
 // import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -38,13 +39,13 @@ const Login: React.FC = () => {
         <h2>Login</h2>
         <StyledForm>
           <InputField>
-            {/* <Field name="email" type="email" id="email" required /> */}
+            <Field name="email" type="email" id="email" required />
             <Label htmlFor="email">Email</Label>
             {/* <ErrorMessage name="email" component="span" className="error" /> */}
           </InputField>
 
           <InputField>
-            {/* <Field name="password" type="password" id="password" required /> */}
+            <Field name="password" type="password" id="password" required />
             <Label htmlFor="password">Password</Label>
             {/* <ErrorMessage name="password" component="span" className="error" /> */}
           </InputField>
