@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 // import { Formik, Form, Field, ErrorMessage } from "formik";
 // import * as Yup from "yup";
 // import { createClient } from "@supabase/supabase-js";
@@ -11,6 +10,7 @@ import StyledForm from "../ui/StyledForm.tsx";
 import InputField from "../ui/InputField.tsx";
 import Field from "../ui/Field.tsx";
 import Label from "../ui/Label.tsx";
+import ErrorBox from "../ui/ErrorBox.tsx";
 // import LoginButton from "../ui/LoginButton.js";
 
 // Supabase client setup
@@ -63,13 +63,3 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-
-// Styled Components
-
-const ErrorBox = styled.div`
-  background: #ffdddd;
-  color: #d8000c;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
-`;
