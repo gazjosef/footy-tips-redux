@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+// import { Formik, Form, Field, ErrorMessage } from "formik";
+// import * as Yup from "yup";
+// import { createClient } from "@supabase/supabase-js";
+
+// UI
 import Container from "../ui/Container.tsx";
 import FormWrapper from "../ui/FormWrapper.tsx";
 import StyledForm from "../ui/StyledForm.tsx";
@@ -7,10 +12,6 @@ import InputField from "../ui/InputField.tsx";
 import Field from "../ui/Field.tsx";
 import Label from "../ui/Label.tsx";
 // import LoginButton from "../ui/LoginButton.js";
-
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import { createClient } from "@supabase/supabase-js";
 
 // Supabase client setup
 // const supabase = createClient("YOUR_SUPABASE_URL", "YOUR_SUPABASE_ANON_KEY");
