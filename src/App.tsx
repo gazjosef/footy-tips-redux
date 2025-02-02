@@ -1,10 +1,23 @@
+import React, {
+  // Suspense,
+  lazy,
+  // useEffect
+} from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  // Navigate,
+} from "react-router-dom";
 import Login from "../pages/Login";
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <div>
-      <Login />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </Router>
   );
 };
 
