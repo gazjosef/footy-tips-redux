@@ -1,41 +1,17 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
-import styled from "styled-components";
+
+// UI
+import TippingContainer from "../ui/TippingContainer";
+import Select from "../ui/Select";
+import { Table, Th, Td } from "../ui/Table";
 
 // Initialize Supabase
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL!,
   process.env.REACT_APP_SUPABASE_ANON_KEY!
 );
-
-// Styled components
-const Container = styled.div`
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-`;
-const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-`;
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-`;
-const Th = styled.th`
-  background: #222;
-  color: white;
-  padding: 10px;
-`;
-const Td = styled.td`
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-`;
 
 // Fetch function
 const fetchFixtures = async (round: string) => {
@@ -63,7 +39,7 @@ const Fixtures = () => {
   });
 
   return (
-    <Container>
+    <TippingContainer>
       <h2>Footy Fixtures</h2>
       <Select
         value={selectedRound}
@@ -104,7 +80,7 @@ const Fixtures = () => {
           </tbody>
         </Table>
       )}
-    </Container>
+    </TippingContainer>
   );
 };
 
