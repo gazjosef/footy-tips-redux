@@ -7,10 +7,16 @@ import TippingContainer from "../ui/TippingContainer";
 import Select from "../ui/Select";
 import { Table, Th, Td } from "../ui/Table";
 
+const SUPABASE_URL: string = import.meta.env.VITE_SUPABASE_URL;
+// const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+console.log("Supabase URL:", SUPABASE_URL);
+
 // Initialize Supabase
 const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL!,
-  process.env.REACT_APP_SUPABASE_ANON_KEY!
+  "",
+  ""
+  //   import.meta.env.VITE_SUPABASE_URL!,
+  //   import.meta.env.VITE_SUPABASE_ANON_KEY!
 );
 
 // Fetch function
