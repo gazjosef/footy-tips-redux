@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "../pages/Login";
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 console.log("Supabase URL:", SUPABASE_URL);
 
 const App: React.FC = () => {
