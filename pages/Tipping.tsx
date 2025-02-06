@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 
@@ -40,6 +40,7 @@ const Fixtures = () => {
   return (
     <TippingContainer>
       <h2>Footy Fixtures</h2>
+
       <Select
         value={selectedRound}
         onChange={(e) => setSelectedRound(e.target.value)}
@@ -52,28 +53,69 @@ const Fixtures = () => {
       </Select>
 
       {isLoading && <p>Loading...</p>}
+
       {error && <p>Error: {error.message}</p>}
+
       {fixtures && (
         <Table>
           <thead>
             <tr>
               <Th>Kickoff</Th>
+
               <Th>Venue</Th>
+
               <Th>Home</Th>
-              <Th>Score</Th>
+
               <Th>Away</Th>
+
+              <Th>Tip</Th>
+
+              <Th>Action</Th>
             </tr>
           </thead>
+
           <tbody>
             {fixtures.map((game) => (
               <tr key={game.id}>
                 <Td>{new Date(game.kickoff_time).toLocaleString()}</Td>
+
                 <Td>{game.venue}</Td>
-                <Td>{game.home_team}</Td>
+
                 <Td>
-                  {game.home_score} - {game.away_score}
+                  <label>
+                    <input
+                      type="radio"
+                      name={`tip-${game.id}`}
+                      value={game.home_team}
+
+                      // checked={selectedTips[game.id] === game.home_team}
+
+                      // onChange={() => handleSelection(game.id, game.home_team)}
+                    />
+
+                    {game.home_team}
+                  </label>
                 </Td>
-                <Td>{game.away_team}</Td>
+
+                <Td>
+                  <label>
+                    <input
+                      type="radio"
+                      name={`tip-${game.id}`}
+                      value={game.away_team}
+
+                      // checked={selectedTips[game.id] === game.away_team}
+
+                      // onChange={() => handleSelection(game.id, game.away_team)}
+                    />
+
+                    {game.away_team}
+                  </label>
+                </Td>
+
+                <Td>
+                  {/* <button onClick={() => submitTip(game.id)}>Submit Tip</button> */}
+                </Td>
               </tr>
             ))}
           </tbody>
