@@ -67,10 +67,6 @@ const Fixtures = () => {
               <Th>Home</Th>
 
               <Th>Away</Th>
-
-              <Th>Tip</Th>
-
-              <Th>Action</Th>
             </tr>
           </thead>
 
@@ -113,9 +109,9 @@ const Fixtures = () => {
                   </label>
                 </Td>
 
-                <Td>
-                  {/* <button onClick={() => submitTip(game.id)}>Submit Tip</button> */}
-                </Td>
+                {/* <Td>
+                  <button onClick={() => submitTip(game.id)}>Submit Tip</button>
+                </Td> */}
               </tr>
             ))}
           </tbody>
