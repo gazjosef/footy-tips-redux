@@ -15,6 +15,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 interface Fixture {
   id: number;
+  round: string;
   kickoff_time: string;
   venue: string;
   home_team: string;
@@ -26,10 +27,22 @@ interface Tip {
   selected_team: string;
 }
 
+const fetchRounds = async (): Promise<string[]> => {
+  const { data, error } = await supabase.from("Fixtures").select("round");
+
+  if (error) throw new Error(error.message);
+
+  // Deduplicate rounds using Set
+  const rounds = data?.map((item) => item.round) || [];
+  const uniqueRounds = [...new Set(rounds)];
+
+  return uniqueRounds;
+};
+
 const fetchFixtures = async (round: string): Promise<Fixture[]> => {
   const { data, error } = await supabase
     .from("Fixtures")
-    .select("id, kickoff_time, venue, home_team, away_team")
+    .select("id, round, kickoff_time, venue, home_team, away_team")
     .eq("round", round);
 
   if (error) throw new Error(error.message);
@@ -48,10 +61,20 @@ const Fixtures = () => {
   const [selectedRound, setSelectedRound] = useState<string>("1");
   const [selectedTips, setSelectedTips] = useState<Record<number, string>>({});
 
+  // Fetch rounds
+  const {
+    data: rounds,
+    isLoading: roundsLoading,
+    error: roundsError,
+  } = useQuery({
+    queryKey: ["rounds"],
+    queryFn: fetchRounds,
+  });
+
   const {
     data: fixtures,
-    isLoading,
-    error,
+    isLoading: fixturesLoading,
+    error: fixturesError,
   } = useQuery({
     queryKey: ["fixtures", selectedRound],
     queryFn: () => fetchFixtures(selectedRound),
@@ -108,19 +131,23 @@ const Fixtures = () => {
     <TippingContainer>
       <h2>Footy Fixtures</h2>
 
+      {roundsLoading && <p>Loading rounds...</p>}
+      {roundsError && <p>Error loading rounds: {roundsError.message}</p>}
+
       <Select
         value={selectedRound}
         onChange={(e) => setSelectedRound(e.target.value)}
       >
-        {[...Array(10).keys()].map((r) => (
-          <option key={r + 1} value={r + 1}>
-            Round {r + 1}
+        <option value="">Select a Round</option> {/* Default option */}
+        {rounds?.map((round) => (
+          <option key={round} value={round}>
+            Round {round}
           </option>
         ))}
       </Select>
 
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
+      {fixturesLoading && <p>Loading fixtures...</p>}
+      {fixturesError && <p>Error loading fixtures: {fixturesError.message}</p>}
 
       {fixtures && (
         <Table>
