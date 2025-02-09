@@ -162,7 +162,21 @@ const Fixtures = () => {
           <tbody>
             {fixtures.map((game) => (
               <tr key={game.id}>
-                <Td>{new Date(game.kickoff_time).toLocaleString()}</Td>
+                {/* <Td>{new Date(game.kickoff_time).toLocaleString()}</Td> */}
+                <Td>
+                  {new Date(game.kickoff_time).toLocaleString("en-AU", {
+                    // timeZone: "Australia/Sydney", // Ensures AEST/AEDT is used
+                    timeZone: "UTC", // Ensures UTC is used
+
+                    weekday: "short", // Example: Mon, Tue, etc.
+                    year: "numeric",
+                    month: "short", // Example: Jan, Feb, etc.
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false, // 24-hour format (optional)
+                  })}
+                </Td>
                 <Td>{game.venue}</Td>
                 <Td>
                   <label>
