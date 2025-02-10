@@ -5,23 +5,26 @@ import {
   Route,
   // Navigate,
 } from "react-router-dom";
+
+// Context
+import { AuthProvider } from "../context/authContext";
+
+// Pages
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Tipping from "../pages/Tipping";
 
-// const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-// // const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-// console.log("Supabase URL:", SUPABASE_URL);
-
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Tipping />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Tipping />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
