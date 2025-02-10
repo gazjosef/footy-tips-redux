@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/authContext";
+// import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/authContext.tsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
@@ -70,3 +71,5 @@ export const Register = () => {
     </FormWrapper>
   );
 };
+
+export default Register;
