@@ -16,7 +16,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 interface Fixture {
   id: number;
   round: string;
-  kickoff_time: string;
+  date: string;
+  time: string;
   venue: string;
   home_team: string;
   away_team: string;
@@ -42,7 +43,7 @@ const fetchRounds = async (): Promise<string[]> => {
 const fetchFixtures = async (round: string): Promise<Fixture[]> => {
   const { data, error } = await supabase
     .from("Fixtures")
-    .select("id, round, kickoff_time, venue, home_team, away_team")
+    .select("id, round, date, time, venue, home_team, away_team")
     .eq("round", round);
 
   if (error) throw new Error(error.message);
@@ -153,7 +154,8 @@ const Fixtures = () => {
         <Table>
           <thead>
             <tr>
-              <Th>Kickoff</Th>
+              <Th>Date</Th>
+              <Th>Time</Th>
               <Th>Venue</Th>
               <Th>Home</Th>
               <Th>Away</Th>
@@ -162,21 +164,8 @@ const Fixtures = () => {
           <tbody>
             {fixtures.map((game) => (
               <tr key={game.id}>
-                {/* <Td>{new Date(game.kickoff_time).toLocaleString()}</Td> */}
-                <Td>
-                  {new Date(game.kickoff_time).toLocaleString("en-AU", {
-                    // timeZone: "Australia/Sydney", // Ensures AEST/AEDT is used
-                    timeZone: "UTC", // Ensures UTC is used
-
-                    weekday: "short", // Example: Mon, Tue, etc.
-                    year: "numeric",
-                    month: "short", // Example: Jan, Feb, etc.
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false, // 24-hour format (optional)
-                  })}
-                </Td>
+                <Td>{game.date}</Td>
+                <Td>{game.time}</Td>
                 <Td>{game.venue}</Td>
                 <Td>
                   <label>
