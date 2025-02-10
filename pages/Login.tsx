@@ -1,65 +1,72 @@
-import React, { useState } from "react";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import { createClient } from "@supabase/supabase-js";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styled from "styled-components";
 
-// UI
-import Container from "../ui/Container.tsx";
-import FormWrapper from "../ui/FormWrapper.tsx";
-import StyledForm from "../ui/StyledForm.tsx";
-import InputField from "../ui/InputField.tsx";
-import Field from "../ui/Field.tsx";
-import Label from "../ui/Label.tsx";
-import ErrorBox from "../ui/ErrorBox.tsx";
-// import LoginButton from "../ui/LoginButton.js";
+const FormWrapper = styled.div`
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+`;
 
-// Supabase client setup
-// const supabase = createClient("YOUR_SUPABASE_URL", "YOUR_SUPABASE_ANON_KEY");
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+`;
 
-// Validation schema
-// const validationSchema = Yup.object({
-//   email: Yup.string().email("Invalid email format").required("Required"),
-//   password: Yup.string().min(6, "Minimum 6 characters").required("Required"),
-// });
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
-const Login: React.FC = () => {
-  const [error, setError] = useState<string | null>(null);
+export const Login = () => {
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  //   const handleSubmit = async (values: { email: string; password: string }) => {
-  //     setError(null);
-  //     const { error } = await supabase.auth.signInWithPassword({
-  //       email: values.email,
-  //       password: values.password,
-  //     });
-  //     if (error) setError(error.message);
-  //   };
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signIn(email, password);
+      toast.success("Logged in successfully!");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
   return (
-    <Container>
-      <FormWrapper>
-        <h2>Login</h2>
-        <StyledForm>
-          <InputField>
-            <Field name="email" type="email" id="email" required />
-            <Label htmlFor="email">Email</Label>
-            {/* <ErrorMessage name="email" component="span" className="error" /> */}
-          </InputField>
-
-          <InputField>
-            <Field name="password" type="password" id="password" required />
-            <Label htmlFor="password">Password</Label>
-            {/* <ErrorMessage name="password" component="span" className="error" /> */}
-          </InputField>
-
-          {error && <ErrorBox>{error}</ErrorBox>}
-
-          {/* <LoginButton type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Logging in..." : "Login"}
-          </LoginButton> */}
-        </StyledForm>
-      </FormWrapper>
-    </Container>
+    <FormWrapper>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <Input
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <Button type="submit">Log In</Button>
+      </form>
+      <ToastContainer position="top-right" />
+    </FormWrapper>
   );
 };
-
-export default Login;
