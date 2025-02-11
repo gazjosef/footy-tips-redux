@@ -1,0 +1,99 @@
+/*
+SCREEN SIZES
+
+0 - 350px:    Phone
+350 - 600px:    Phone
+600 - 900px:  Tablet Portrait
+900 - 1200px:  Tablet Landscape
+(1200 - 1800) is where our normal styles apply
+1800px+:       Big Desktop
+
+$breakpoint arguement choices:
+- sm-phone
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+TAILWIND
+
+0 - 350px:    Phone
+350 - 600px:    Phone
+600 - 900px:  Tablet Portrait
+900 - 1200px:  Tablet Landscape
+(1200 - 1800) is where our normal styles apply
+1800px+:       Big Desktop
+
+$breakpoint arguement choices:
+- sm-phone
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: Base + Typography > general layout + grid > page layout > components
+
+1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+  // ** SCREEN SIZES
+  @if $breakpoint == sm-phone {
+    @media (max-width: 21.875em) {
+      @content;
+    } // 350px
+  }
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content;
+    } // 600px
+  }
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) {
+      @content;
+    } // 900px
+  }
+  @if $breakpoint == tab-land {
+    @media (max-width: 75em) {
+      @content;
+    } // 1200px
+  }
+  @if $breakpoint == desktop {
+    @media (max-width: 112.5em) {
+      @content;
+    } // 1800px
+  }
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      @content;
+    } // 1800px
+  }
+
+  // ** TAILWIND
+
+  @if $breakpoint == sm {
+    @media (max-width: 40em) {
+      @content;
+    } // 640px
+  }
+  @if $breakpoint == md {
+    @media (max-width: 48em) {
+      @content;
+    } // 768px
+  }
+  @if $breakpoint == lg {
+    @media (max-width: 64em) {
+      @content;
+    } // 1024px
+  }
+  @if $breakpoint == xl {
+    @media (max-width: 80em) {
+      @content;
+    } // 1280px
+  }
+  @if $breakpoint == 2xl {
+    @media (max-width: 96em) {
+      @content;
+    } // 1536px
+  }
+}
