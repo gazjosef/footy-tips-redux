@@ -16,6 +16,8 @@ import Register from "../pages/Register";
 import Tipping from "../pages/Tipping";
 import PrivateRoute from "../pages/PrivateRoute";
 
+import "../styles/index.scss";
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
