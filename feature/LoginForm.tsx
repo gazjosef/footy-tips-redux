@@ -1,5 +1,5 @@
-// src/LoginForm.tsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import { supabase } from "../src/supabase"; // Adjust the path as necessary
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -43,6 +43,17 @@ const Button = styled.button`
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -101,6 +112,9 @@ const LoginForm: React.FC = () => {
           {loading ? "Logging in..." : "Login"}
         </Button>
       </Form>
+      <p>
+        Not a user? <StyledLink to="/register">Register here</StyledLink>
+      </p>
     </FormContainer>
   );
 };
