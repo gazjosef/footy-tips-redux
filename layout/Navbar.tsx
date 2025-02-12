@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useAuth } from "../context/authContext";
 
@@ -11,9 +11,10 @@ const NavbarContainer = styled.nav`
   align-items: center;
   padding: 1rem 2rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
 `;
 
-const NavLinks = styled.ul`
+const NavLinks = styled.ul<{ isOpen: boolean }>`
   list-style: none;
   display: flex;
   gap: 1.5rem;
@@ -26,17 +27,26 @@ const NavLinks = styled.ul`
       text-decoration: underline;
     }
   }
+
+  @media (max-width: 768px) {
+    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: ${({ theme }) => theme.background};
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 5px;
+    width: 200px;
+  }
 `;
 
 const UserMenu = styled.div`
   position: relative;
 `;
 
-interface DropdownProps {
-  isOpen: boolean;
-}
-
-const Dropdown = styled.div<DropdownProps>`
+const Dropdown = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
@@ -66,6 +76,7 @@ const MobileMenuButton = styled.button`
   border: none;
   font-size: 1.5rem;
   display: none;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     display: block;
@@ -74,29 +85,49 @@ const MobileMenuButton = styled.button`
 
 const Navbar: React.FC = () => {
   const { user, signOut } = useAuth();
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <NavbarContainer>
+      {/* Mobile Menu Button */}
       <MobileMenuButton
-        aria-label="Toggle menu"
+        aria-label="Toggle navigation menu"
         onClick={() => setMenuOpen(!menuOpen)}
       >
         ☰
       </MobileMenuButton>
-      <NavLinks style={{ display: menuOpen ? "flex" : "none" }}>
+
+      {/* Navigation Links */}
+      <NavLinks isOpen={menuOpen}>
         <a href="/tips">Tips</a>
         <a href="/leaderboard">Leaderboard</a>
       </NavLinks>
+
+      {/* User Menu */}
       {user ? (
-        <UserMenu>
+        <UserMenu ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
           >
-            {user.name || "Profile"}
+            {user.email || "Profile"}
           </button>
           <Dropdown isOpen={dropdownOpen}>
             <button onClick={signOut}>Logout</button>
