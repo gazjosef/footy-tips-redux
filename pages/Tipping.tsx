@@ -7,6 +7,7 @@ import TippingContainer from "../ui/TippingContainer";
 import Select from "../ui/Select";
 import Button from "../ui/Button";
 import { Table, Th, Td } from "../ui/Table";
+import PlaceCentre from "../ui/PlaceCentre";
 
 // Initialize Supabase
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
@@ -129,81 +130,89 @@ const Fixtures = () => {
   };
 
   return (
-    <TippingContainer>
-      <h2>Footy Fixtures</h2>
+    <PlaceCentre>
+      <TippingContainer>
+        <h2>Footy Fixtures</h2>
 
-      {roundsLoading && <p>Loading rounds...</p>}
-      {roundsError && <p>Error loading rounds: {roundsError.message}</p>}
+        {roundsLoading && <p>Loading rounds...</p>}
+        {roundsError && <p>Error loading rounds: {roundsError.message}</p>}
 
-      <Select
-        value={selectedRound}
-        onChange={(e) => setSelectedRound(e.target.value)}
-      >
-        <option value="">Select a Round</option> {/* Default option */}
-        {rounds?.map((round) => (
-          <option key={round} value={round}>
-            Round {round}
-          </option>
-        ))}
-      </Select>
+        <Select
+          value={selectedRound}
+          onChange={(e) => setSelectedRound(e.target.value)}
+        >
+          <option value="">Select a Round</option> {/* Default option */}
+          {rounds?.map((round) => (
+            <option key={round} value={round}>
+              Round {round}
+            </option>
+          ))}
+        </Select>
 
-      {fixturesLoading && <p>Loading fixtures...</p>}
-      {fixturesError && <p>Error loading fixtures: {fixturesError.message}</p>}
+        {fixturesLoading && <p>Loading fixtures...</p>}
+        {fixturesError && (
+          <p>Error loading fixtures: {fixturesError.message}</p>
+        )}
 
-      {fixtures && (
-        <Table>
-          <thead>
-            <tr>
-              <Th>Date</Th>
-              <Th>Time</Th>
-              <Th>Venue</Th>
-              <Th>Home</Th>
-              <Th>Away</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {fixtures.map((game) => (
-              <tr key={game.id}>
-                <Td>{game.date}</Td>
-                <Td>{game.time}</Td>
-                <Td>{game.venue}</Td>
-                <Td>
-                  <label>
-                    <input
-                      type="radio"
-                      name={`tip-${game.id}`}
-                      value={game.home_team}
-                      checked={selectedTips[game.id] === game.home_team}
-                      onChange={() => handleSelection(game.id, game.home_team)}
-                    />
-                    {game.home_team}
-                  </label>
-                </Td>
-                <Td>
-                  <label>
-                    <input
-                      type="radio"
-                      name={`tip-${game.id}`}
-                      value={game.away_team}
-                      checked={selectedTips[game.id] === game.away_team}
-                      onChange={() => handleSelection(game.id, game.away_team)}
-                    />
-                    {game.away_team}
-                  </label>
-                </Td>
+        {fixtures && (
+          <Table>
+            <thead>
+              <tr>
+                <Th>Date</Th>
+                <Th>Time</Th>
+                <Th>Venue</Th>
+                <Th>Home</Th>
+                <Th>Away</Th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
+            </thead>
+            <tbody>
+              {fixtures.map((game) => (
+                <tr key={game.id}>
+                  <Td>{game.date}</Td>
+                  <Td>{game.time}</Td>
+                  <Td>{game.venue}</Td>
+                  <Td>
+                    <label>
+                      <input
+                        type="radio"
+                        name={`tip-${game.id}`}
+                        value={game.home_team}
+                        checked={selectedTips[game.id] === game.home_team}
+                        onChange={() =>
+                          handleSelection(game.id, game.home_team)
+                        }
+                      />
+                      {game.home_team}
+                    </label>
+                  </Td>
+                  <Td>
+                    <label>
+                      <input
+                        type="radio"
+                        name={`tip-${game.id}`}
+                        value={game.away_team}
+                        checked={selectedTips[game.id] === game.away_team}
+                        onChange={() =>
+                          handleSelection(game.id, game.away_team)
+                        }
+                      />
+                      {game.away_team}
+                    </label>
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
 
-      <Button
-        onClick={submitAllTips}
-        disabled={Object.keys(selectedTips).length === 0}
-      >
-        Submit All Tips
-      </Button>
-    </TippingContainer>
+        <Button
+          onClick={submitAllTips}
+          disabled={Object.keys(selectedTips).length === 0}
+        >
+          Submit All Tips
+        </Button>
+      </TippingContainer>
+    </PlaceCentre>
   );
 };
 

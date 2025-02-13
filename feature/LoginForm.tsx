@@ -4,6 +4,8 @@ import { supabase } from "../src/supabase"; // Adjust the path as necessary
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
+import PlaceCentre from "../ui/PlaceCentre";
+
 // Styled Components
 const FormContainer = styled.div`
   display: flex;
@@ -91,31 +93,35 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <FormContainer>
-      <FormTitle>Login</FormTitle>
-      <Form onSubmit={handleLogin}>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </Button>
-      </Form>
-      <p>
-        Not a user? <StyledLink to="/register">Register here</StyledLink>
-      </p>
-    </FormContainer>
+    <PlaceCentre>
+      <FormContainer>
+        <FormTitle>Login</FormTitle>
+        <Form onSubmit={handleLogin}>
+          <Input
+            type="email"
+            //   placeholder="Email"
+            placeholder="john@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Input
+            type="password"
+            //   placeholder="Password"
+            placeholder="Pass123!"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </Button>
+        </Form>
+        <p>
+          Not a user? <StyledLink to="/register">Register here</StyledLink>
+        </p>
+      </FormContainer>
+    </PlaceCentre>
   );
 };
 

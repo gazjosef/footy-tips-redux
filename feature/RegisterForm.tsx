@@ -1,8 +1,9 @@
-// src/RegisterForm.tsx
 import React, { useState } from "react";
 import { supabase } from "../src/supabase"; // Adjust the path as necessary
 import { toast } from "react-toastify";
 import styled from "styled-components";
+
+import PlaceCentre from "../ui/PlaceCentre";
 
 // Styled Components
 const FormContainer = styled.div`
@@ -78,28 +79,30 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <FormContainer>
-      <FormTitle>Register</FormTitle>
-      <Form onSubmit={handleRegister}>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button type="submit" disabled={loading}>
-          {loading ? "Registering..." : "Register"}
-        </Button>
-      </Form>
-    </FormContainer>
+    <PlaceCentre>
+      <FormContainer>
+        <FormTitle>Register</FormTitle>
+        <Form onSubmit={handleRegister}>
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </Button>
+        </Form>
+      </FormContainer>
+    </PlaceCentre>
   );
 };
 
