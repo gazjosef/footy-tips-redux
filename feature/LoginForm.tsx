@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
-import { supabase } from "../src/supabase"; // Adjust the path as necessary
+import { Link } from "react-router-dom";
+import { supabase } from "../src/supabase";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-
 import PlaceCentre from "../ui/PlaceCentre";
 
 // Styled Components
@@ -23,14 +22,50 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 300px;
-  gap: 1rem;
+  gap: 1.5rem;
+`;
+
+// Floating Label Input
+const InputContainer = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 const Input = styled.input`
-  padding: 0.75rem;
+  width: 100%;
+  padding: 1rem 0.75rem;
   font-size: 1rem;
-  border-radius: 5px;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  background: transparent;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  &:focus + label,
+  &:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 0.85rem;
+    color: #007bff;
+  }
+`;
+
+// Floating Label
+const Label = styled.label`
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 5px;
+  font-size: 1rem;
+  color: #888;
+  transition: 0.2s ease-out;
+  pointer-events: none;
 `;
 
 const Button = styled.button`
@@ -41,10 +76,16 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background 0.2s ease-in-out;
 
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
 `;
 
@@ -60,35 +101,38 @@ const StyledLink = styled(Link)`
 `;
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "john@gmail.com",
+    password: "Pass1234",
+  });
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email, password } = formData;
 
     if (!email || !password) {
       toast.error("Please enter both email and password.");
       return;
     }
 
-    setLoading(true);
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      toast.error(`Error: ${error.message}`);
-      return;
-    }
-
-    if (data.user) {
-      toast.success("Login successful!");
-      // Redirect or update global state if needed
+      if (error) throw error;
+      if (data.user) toast.success("Login successful!");
+    } catch (error: any) {
+      toast.error(`Error: ${error.message || "Something went wrong"}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,26 +141,35 @@ const LoginForm: React.FC = () => {
       <FormContainer>
         <FormTitle>Login</FormTitle>
         <Form onSubmit={handleLogin}>
-          <Input
-            type="email"
-            //   placeholder="Email"
-            placeholder="john@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <Input
-            type="password"
-            //   placeholder="Password"
-            placeholder="Pass123!"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <InputContainer>
+            <Input
+              type="email"
+              name="email"
+              placeholder=" "
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <Label>Email address</Label>
+          </InputContainer>
+
+          <InputContainer>
+            <Input
+              type="password"
+              name="password"
+              placeholder=""
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <Label>Password</Label>
+          </InputContainer>
+
           <Button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
         </Form>
+
         <p>
           Not a user? <StyledLink to="/register">Register here</StyledLink>
         </p>
