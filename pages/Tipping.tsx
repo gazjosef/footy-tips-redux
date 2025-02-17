@@ -12,7 +12,6 @@ import {
 } from "../ui/Tip";
 import { SelectBox, Select } from "../ui/Select";
 import Button from "../ui/Button";
-// import { Table, Th, Td, GameLabel, GameInfo } from "../ui/Table";
 import PlaceCentre from "../ui/PlaceCentre";
 
 // Initialize Supabase
@@ -186,18 +185,20 @@ const Fixtures = () => {
               </TeamLabel>
               <MatchInfo>
                 <span>
-                  {new Date(`1970-01-01T${game.time}`).toLocaleTimeString(
-                    "en-GB",
-                    { hour: "numeric", hour12: true }
-                  )}
-                </span>
-                <span>
-                  {new Date(game.date).toLocaleDateString("en-GB", {
+                  {new Date(game.date).toLocaleDateString("en-AU", {
                     weekday: "long",
                     day: "numeric",
                     month: "long",
                   })}
                 </span>
+
+                <span>
+                  {new Date(`1970-01-01T${game.time}`).toLocaleTimeString(
+                    "en-AU",
+                    { hour: "numeric", hour12: true }
+                  )}
+                </span>
+
                 <span>{game.venue}</span>
               </MatchInfo>
               <TeamLabel justify="flex-end">
