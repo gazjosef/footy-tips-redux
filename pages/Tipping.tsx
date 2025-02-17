@@ -3,10 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 
 // UI
-import TippingContainer from "../ui/TippingContainer";
+import {
+  TippingContainer,
+  FixtureCard,
+  TeamsContainer,
+  TeamLabel,
+  TeamLogo,
+  MatchInfo,
+} from "../ui/Tip";
 import Select from "../ui/Select";
 import Button from "../ui/Button";
-import { Table, Th, Td } from "../ui/Table";
+import { Table, Th, Td, GameLabel, GameInfo } from "../ui/Table";
 import PlaceCentre from "../ui/PlaceCentre";
 
 // Initialize Supabase
@@ -57,6 +64,12 @@ const fetchTips = async (): Promise<Tip[]> => {
     .select("fixture_id, selected_team");
   if (error) throw new Error(error.message);
   return data || [];
+};
+
+const getTeamLogoUrl = (teamName: string) => {
+  // Convert team name to lowercase and replace spaces with hyphens
+  const formattedName = teamName.toLowerCase().replace(/\s+/g, "-");
+  return `${SUPABASE_URL}/storage/v1/object/public/logo/${formattedName}.png`;
 };
 
 const Fixtures = () => {
@@ -156,52 +169,57 @@ const Fixtures = () => {
 
         {fixtures && (
           <Table>
-            <thead>
-              <tr>
-                <Th>Date</Th>
-                <Th>Time</Th>
-                <Th>Venue</Th>
-                <Th>Home</Th>
-                <Th>Away</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {fixtures.map((game) => (
-                <tr key={game.id}>
-                  <Td>{game.date}</Td>
-                  <Td>{game.time}</Td>
-                  <Td>{game.venue}</Td>
-                  <Td>
-                    <label>
-                      <input
-                        type="radio"
-                        name={`tip-${game.id}`}
-                        value={game.home_team}
-                        checked={selectedTips[game.id] === game.home_team}
-                        onChange={() =>
-                          handleSelection(game.id, game.home_team)
-                        }
-                      />
-                      {game.home_team}
-                    </label>
-                  </Td>
-                  <Td>
-                    <label>
-                      <input
-                        type="radio"
-                        name={`tip-${game.id}`}
-                        value={game.away_team}
-                        checked={selectedTips[game.id] === game.away_team}
-                        onChange={() =>
-                          handleSelection(game.id, game.away_team)
-                        }
-                      />
-                      {game.away_team}
-                    </label>
-                  </Td>
-                </tr>
-              ))}
-            </tbody>
+            {fixtures.map((game) => (
+              <FixtureCard key={game.id}>
+                <TeamLabel>
+                  <input
+                    type="radio"
+                    name={`tip-${game.id}`}
+                    value={game.home_team}
+                    checked={selectedTips[game.id] === game.home_team}
+                    onChange={() => handleSelection(game.id, game.home_team)}
+                  />
+                  <img
+                    src={getTeamLogoUrl(game.home_team)}
+                    alt={game.home_team}
+                    width="60"
+                    height="45"
+                  />
+                  {game.home_team}
+                </TeamLabel>
+                <MatchInfo>
+                  <span>
+                    {new Date(`1970-01-01T${game.time}`).toLocaleTimeString(
+                      "en-GB",
+                      { hour: "numeric", hour12: true }
+                    )}
+                  </span>
+                  <span>
+                    {new Date(game.date).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                    })}
+                  </span>
+                  <span>{game.venue}</span>
+                </MatchInfo>
+                <TeamLabel>
+                  {game.away_team}
+                  <img
+                    src={getTeamLogoUrl(game.away_team)}
+                    alt={game.away_team}
+                    width="60"
+                    height="45"
+                  />
+                  <input
+                    type="radio"
+                    name={`tip-${game.id}`}
+                    value={game.away_team}
+                    checked={selectedTips[game.id] === game.away_team}
+                    onChange={() => handleSelection(game.id, game.away_team)}
+                  />
+                </TeamLabel>
+              </FixtureCard>
+            ))}
           </Table>
         )}
 
