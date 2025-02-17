@@ -10,7 +10,7 @@ import {
   TeamLogo,
   MatchInfo,
 } from "../ui/Tip";
-import Select from "../ui/Select";
+import { SelectBox, Select } from "../ui/Select";
 import Button from "../ui/Button";
 // import { Table, Th, Td, GameLabel, GameInfo } from "../ui/Table";
 import PlaceCentre from "../ui/PlaceCentre";
@@ -146,18 +146,20 @@ const Fixtures = () => {
       <TippingContainer>
         {roundsLoading && <p>Loading rounds...</p>}
         {roundsError && <p>Error loading rounds: {roundsError.message}</p>}
-
-        <Select
-          value={selectedRound}
-          onChange={(e) => setSelectedRound(e.target.value)}
-        >
-          <option value="">Select a Round</option> {/* Default option */}
-          {rounds?.map((round) => (
-            <option key={round} value={round}>
-              Round {round}
-            </option>
-          ))}
-        </Select>
+        <SelectBox>
+          <h3>Select:</h3>
+          <Select
+            value={selectedRound}
+            onChange={(e) => setSelectedRound(e.target.value)}
+          >
+            <option value="">Select a Round</option> {/* Default option */}
+            {rounds?.map((round) => (
+              <option key={round} value={round}>
+                Round {round}
+              </option>
+            ))}
+          </Select>
+        </SelectBox>
 
         {fixturesLoading && <p>Loading fixtures...</p>}
         {fixturesError && (
