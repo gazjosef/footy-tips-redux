@@ -100,7 +100,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: "john@gmail.com",
     password: "Pass1234",

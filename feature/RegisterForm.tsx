@@ -82,7 +82,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || !password) {
