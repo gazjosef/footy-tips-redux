@@ -1,7 +1,16 @@
 import styled from "styled-components";
 
+interface TeamLabelProps {
+  justify?:
+    | "flex-start"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "flex-end";
+}
+
 export const TippingContainer = styled.div`
-  max-width: 800px;
+  width: 800px;
   margin: auto;
   padding: 20px;
 `;
@@ -22,29 +31,23 @@ export const FixtureCard = styled.div`
   text-align: center;
 `;
 
-export const TeamsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
-`;
-
-export const TeamLabel = styled.label`
-  width: 10rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+export const TeamLabel = styled.label<TeamLabelProps>`
   cursor: pointer;
+  width: 30rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: ${(props) => props.justify || "space-between"};
+  gap: 2rem;
 `;
 
 export const TeamLogo = styled.img`
   width: 60px;
   height: 45px;
-  margin-bottom: 5px;
 `;
 
 export const MatchInfo = styled.div`
+  width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -52,8 +55,4 @@ export const MatchInfo = styled.div`
   font-size: 12px;
   color: #666;
   text-align: center;
-`;
-
-export const RadioInput = styled.input`
-  margin-top: 5px;
 `;
