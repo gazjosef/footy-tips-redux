@@ -4,6 +4,7 @@ import { useAuth } from "../context/authContext";
 
 const NavbarContainer = styled.nav`
   width: 100%;
+  height: 8rem;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
   display: flex;
