@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../context/authContext";
 
 // Layout
-import Navbar from "../layout/Navbar";
+// import Navbar from "../layout/Navbar";
+import Header from "../layout/header/Header";
 
 // Pages & Components
 import Tipping from "../pages/Tipping";
@@ -17,7 +18,7 @@ import "../styles/index.scss";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div>
-    <Navbar />
+    <Header />
     {children}
   </div>
 );

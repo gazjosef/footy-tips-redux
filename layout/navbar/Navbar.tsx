@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 
 const NavbarContainer = styled.nav`
   width: 100%;
+  max-width: 120rem;
   height: 8rem;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
@@ -11,7 +12,6 @@ const NavbarContainer = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
 `;
 
