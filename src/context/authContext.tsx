@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { supabase } from "../src/supabase";
+import { supabase } from "../supabase";
 import {
   User,
   // Session

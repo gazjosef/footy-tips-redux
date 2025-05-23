@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../src/supabase";
+import { supabase } from "../supabase";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import PlaceCentre from "../ui/PlaceCentre";
+import PlaceCentre from "../components/ui/PlaceCentre";
 
 // Styled Components
 const FormContainer = styled.div`

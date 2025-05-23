@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../src/context/authContext";
 
 const NavbarContainer = styled.nav`
   width: 100%;
   max-width: 120rem;
   height: 8rem;
   background: ${({ theme }) => theme.background};
+  background: orangered;
   color: ${({ theme }) => theme.text};
   display: flex;
   justify-content: space-between;

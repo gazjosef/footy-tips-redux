@@ -2,17 +2,17 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Context
-import { AuthProvider } from "../context/authContext";
+import { AuthProvider } from "./context/authContext";
 
 // Layout
 // import Navbar from "../layout/Navbar";
 import Header from "../layout/header/Header";
 
 // Pages & Components
-import Tipping from "../pages/Tipping";
-import PrivateRoute from "../pages/PrivateRoute";
-import LoginForm from "../feature/LoginForm";
-import RegisterForm from "../feature/RegisterForm";
+import Tipping from "./pages/Tipping";
+import PrivateRoute from "./pages/PrivateRoute";
+import LoginForm from "./feature/LoginForm";
+import RegisterForm from "./feature/RegisterForm";
 
 import "../styles/index.scss";
 

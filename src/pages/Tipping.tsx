@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 
@@ -9,10 +9,10 @@ import {
   TeamLabel,
   TeamLogo,
   MatchInfo,
-} from "../ui/Tip";
-import { SelectBox, Select } from "../ui/Select";
-import Button from "../ui/Button";
-import PlaceCentre from "../ui/PlaceCentre";
+} from "../components/ui/Tip";
+import { SelectBox, Select } from "../components/ui/Select";
+import Button from "../components/ui/Button";
+import PlaceCentre from "../components/ui/PlaceCentre";
 
 // Initialize Supabase
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
