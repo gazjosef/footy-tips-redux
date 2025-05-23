@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/authContext";
 
 // Layout
 // import Navbar from "../layout/Navbar";
-import Header from "../layout/header/Header";
+import Header from "./components/layout/header/Header";
 
 // Pages & Components
 import Tipping from "./pages/Tipping";
