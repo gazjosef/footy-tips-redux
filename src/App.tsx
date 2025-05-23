@@ -14,7 +14,7 @@ import PrivateRoute from "./pages/PrivateRoute";
 import LoginForm from "./feature/LoginForm";
 import RegisterForm from "./feature/RegisterForm";
 
-import "../styles/index.scss";
+import "./styles/index.scss";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div>

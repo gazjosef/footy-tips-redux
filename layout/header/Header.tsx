@@ -1,6 +1,6 @@
 // import React from "react";
 import Navbar from "../navbar/Navbar";
-import { Wrapper } from "../../styles/Layout.styles";
+import { Wrapper } from "../../src/styles/Layout.styles";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
