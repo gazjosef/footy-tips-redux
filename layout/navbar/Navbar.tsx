@@ -6,9 +6,8 @@ const NavbarContainer = styled.nav`
   width: 100%;
   max-width: 120rem;
   height: 8rem;
-  background: ${({ theme }) => theme.background};
   background: orangered;
-  color: ${({ theme }) => theme.text};
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +35,6 @@ const NavLinks = styled.ul<{ isOpen: boolean }>`
     position: absolute;
     top: 60px;
     right: 0;
-    background: ${({ theme }) => theme.background};
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     border-radius: 5px;
@@ -52,7 +50,6 @@ const Dropdown = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
-  background: ${({ theme }) => theme.background};
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -67,9 +64,6 @@ const Dropdown = styled.div<{ isOpen: boolean }>`
     padding: 0.5rem;
     cursor: pointer;
     text-align: left;
-    &:hover {
-      background: ${({ theme }) => theme.hover};
-    }
   }
 `;
 

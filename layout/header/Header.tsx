@@ -6,9 +6,7 @@ import styled from "styled-components";
 const HeaderContainer = styled.header`
   width: 100%;
   height: 8rem;
-  background: ${({ theme }) => theme.background};
   background-color: royalblue;
-  color: ${({ theme }) => theme.text};
   color: white;
   display: flex;
   justify-content: space-between;
