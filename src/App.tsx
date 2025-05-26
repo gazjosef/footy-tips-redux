@@ -11,7 +11,7 @@ import Header from "./components/layout/header/Header";
 // Pages & Components
 import Tipping from "./pages/Tipping";
 import PrivateRoute from "./pages/PrivateRoute";
-import LoginForm from "./feature/Login/LoginForm";
+import Login from "./pages/Login";
 import RegisterForm from "./feature/Register/RegisterForm";
 
 import "./styles/index.scss";
@@ -30,7 +30,7 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Tipping />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/tips" element={<Tipping />} />
             <Route

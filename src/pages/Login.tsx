@@ -3,6 +3,7 @@ import { useAuth } from "../context/authContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import PlaceCentre from "../components/ui/PlaceCentre";
 
 const FormWrapper = styled.div`
   width: 300px;
@@ -14,6 +15,7 @@ const FormWrapper = styled.div`
 
 const Input = styled.input`
   width: 100%;
+  height: 4rem;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -53,25 +55,27 @@ export const Login = () => {
   };
 
   return (
-    <FormWrapper>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <Input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button type="submit">Log In</Button>
-      </form>
-      <ToastContainer position="top-right" />
-    </FormWrapper>
+    <PlaceCentre>
+      <FormWrapper>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <Input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Button type="submit">Log In</Button>
+        </form>
+        <ToastContainer position="top-right" />
+      </FormWrapper>
+    </PlaceCentre>
   );
 };
 
