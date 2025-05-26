@@ -43,8 +43,12 @@ export const Login = () => {
     try {
       await signIn(email, password);
       toast.success("Logged in successfully!");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 

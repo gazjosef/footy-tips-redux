@@ -11,8 +11,8 @@ import Header from "./components/layout/header/Header";
 // Pages & Components
 import Tipping from "./pages/Tipping";
 import PrivateRoute from "./pages/PrivateRoute";
-import LoginForm from "./feature/LoginForm";
-import RegisterForm from "./feature/RegisterForm";
+import LoginForm from "./feature/Login/LoginForm";
+import RegisterForm from "./feature/Register/RegisterForm";
 
 import "./styles/index.scss";
 
