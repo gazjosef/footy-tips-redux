@@ -43,8 +43,12 @@ export const Register = () => {
     try {
       await signUp(email, password);
       toast.success("Account created! Please log in.");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 
