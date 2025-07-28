@@ -1,51 +1,19 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider"; // adjust path as needed
+import AppRouter from "./routes/AppRouter"; // your routes
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
-// Context
-import { AuthProvider } from "./context/authContext";
-
-// Layout
-// import Navbar from "../layout/Navbar";
-import Header from "./components/layout/header/Header";
-
-// Pages & Components
-import Tipping from "./pages/Tipping";
-import PrivateRoute from "./pages/PrivateRoute";
-import Login from "./pages/Login";
-import RegisterForm from "./feature/Register/RegisterForm";
-
-import "./styles/index.scss";
-
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div>
-    <Header />
-    {children}
-  </div>
-);
-
-const App: React.FC = () => {
+function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Tipping />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/tips" element={<Tipping />} />
-            <Route
-              path="/tipping"
-              element={
-                <PrivateRoute>
-                  <Tipping />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </Layout>
-      </Router>
+      <BrowserRouter>
+        <AppRouter />
+        <ToastContainer position="top-right" autoClose={3000} />
+      </BrowserRouter>
     </AuthProvider>
   );
-};
+}
 
 export default App;

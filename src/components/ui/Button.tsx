@@ -1,26 +1,18 @@
-import styled from "styled-components";
+import React from "react";
 
-const Button = styled.button`
-  cursor: pointer;
-  background-color: #007bff;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  margin-top: 15px;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
 
-  color: white;
-  font-size: 16px;
-
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
+const Button = ({ children, ...props }: ButtonProps) => {
+  return (
+    <button
+      {...props}
+      className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {children}
+    </button>
+  );
+};
 
 export default Button;

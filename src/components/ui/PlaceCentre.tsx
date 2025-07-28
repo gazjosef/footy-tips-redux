@@ -1,10 +1,9 @@
-import styled from "styled-components";
+import React from "react";
 
-const PlaceCentre = styled.main`
-  min-height: calc(100vh - 2rem);
-
-  display: grid;
-  place-content: center;
-`;
+const PlaceCentre = ({ children }: { children: React.ReactNode }) => (
+  <div className="min-h-screen bg-gray-50 py-10 flex justify-center items-start">
+    {children}
+  </div>
+);
 
 export default PlaceCentre;
